@@ -18,7 +18,7 @@ type SlackEventMachine interface {
 	GetNextSlackAttachments() []slack.Attachment
 }
 
-func (g *Gobot) NewGobot() *Gobot {
+func NewGobot() *Gobot {
 	machines := map[string]SlackEventMachine{}
 	states := map[string]SlackEventMachine{}
 	return &Gobot{machines, states}
