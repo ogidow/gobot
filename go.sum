@@ -1,0 +1,9 @@
+git.pepabo.com/minne/minne-deployer v0.0.0-20190315072132-d907dddad4ab h1:6x3sJpYo/m4wpyy3vstIL1+4Ur9fteRUen8p+4xFCHg=
+github.com/gorilla/websocket v1.4.0 h1:WDFjx/TMzVgy9VdMMQi2K2Emtwi2QcUQsztZ/zLaH/Q=
+github.com/gorilla/websocket v1.4.0/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoAMk2YaljkQ=
+github.com/looplab/fsm v0.1.0 h1:Qte7Zdn/5hBNbXzP7yxVU4OIFHWXBovyTT2LaBTyC20=
+github.com/looplab/fsm v0.1.0/go.mod h1:m2VaOfDHxqXBBMgc26m6yUOwkFn8H2AlJDE+jd/uafI=
+github.com/nlopes/slack v0.5.0 h1:NbIae8Kd0NpqaEI3iUrsuS0KbcEDhzhc939jLW5fNm0=
+github.com/nlopes/slack v0.5.0/go.mod h1:jVI4BBK3lSktibKahxBF74txcK2vyvkza1z/+rRnVAM=
+github.com/pkg/errors v0.8.1 h1:iURUrRGxPUNPdy5/HRSm+Yj6okJ6UtLINN0Q9M4+h3I=
+github.com/pkg/errors v0.8.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
