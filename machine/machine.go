@@ -11,7 +11,8 @@ type Machine struct {
 }
 
 func NewMachine(name string) *Machine{
-	return &Machine{Name: name}
+	states := map[string]*State{}
+	return &Machine{Name: name, states: states}
 }
 
 func (m *Machine) AddState(f func(s *State)) {
