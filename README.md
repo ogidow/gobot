@@ -44,14 +44,14 @@ You can also define an Event for `State` in` s.Event` method.
 In the above example, when the `yes` button is pressed, the` accept` event fires and transitions to the `ordering` State.
 
 
-### register Machine to gobot
+### Register Machine to gobot
 You can register the created machine in gobot by the following method
 
 ```go
 bot.AddMachine(food.NewMachine())
 ```
 
-### handle slack api
+### Handle slack api
 gobot provides a slakc api handler.
 gobot uses the event api 'app_mention' to handle mentions.
 
@@ -72,4 +72,4 @@ http.ListenAndServe(":" + os.Getenv("PORT"), nil)
 ### Example
 See https://github.com/ogidow/gobot/blob/master/examples
 
-![](./examples/gobot_sample.gif)
+![](/examples/gobot_sample.gif)
