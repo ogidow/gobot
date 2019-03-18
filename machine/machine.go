@@ -36,5 +36,6 @@ func (m *Machine) Attachment() slack.Attachment{
 }
 
 func(m *Machine) BuildAttachment(callback slack.InteractionCallback){
+	m.Current.clearAttachment()
 	m.Current.BuildAttachmentFunc(callback)
 }

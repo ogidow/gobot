@@ -91,3 +91,7 @@ func (s *State) Event (name string, to string, e func(slack.InteractionCallback)
 func (s *State) BuildAttachment(e func(slack.InteractionCallback)) {
 	s.BuildAttachmentFunc = e
 }
+
+func (s *State) clearAttachment() {
+	*s.attachment = slack.Attachment{Color: "#f9a41b", CallbackID: s.name}
+}
