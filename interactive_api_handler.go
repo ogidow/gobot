@@ -11,8 +11,8 @@ type interactiveApiHandler struct {
 	bot *Gobot
 }
 
-func NewInteractiveApiHandler(bot *Gobot) interactiveApiHandler {
-	return interactiveApiHandler{bot}
+func (g *Gobot) NewInteractiveApiHandler() interactiveApiHandler {
+	return interactiveApiHandler{g}
 }
 
 func (h interactiveApiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {

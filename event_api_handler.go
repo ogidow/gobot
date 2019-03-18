@@ -16,9 +16,9 @@ type eventApiHandler struct {
 	bot *Gobot
 }
 
-func NewEventApiHandler(verificationToken string, firstMessage string, slackAccessToken string, bot *Gobot) eventApiHandler {
+func (g *Gobot) NewEventApiHandler(verificationToken string, firstMessage string, slackAccessToken string) eventApiHandler {
 	client := slack.New(slackAccessToken)
-	return eventApiHandler{client, verificationToken, firstMessage, bot}
+	return eventApiHandler{client, verificationToken, firstMessage, g}
 }
 
 func (h eventApiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
