@@ -26,11 +26,15 @@ func (m *Machine) AddState(stateName string, f func(s *State)) {
 }
 
 func(m *Machine) Event(name string, callback slack.InteractionCallback) {
-	ev := m.Current.events[name]
+	ev := m.Current.Events[name]
 	ev.Process(callback)
 	m.Current = m.states[ev.To]
 }
 
 func (m *Machine) Attachment() slack.Attachment{
 	return *m.Current.attachment
+}
+
+func(m *Machine) BuildAttachment(callback slack.InteractionCallback){
+	m.Current.BuildAttachmentFunc(callback)
 }

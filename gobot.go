@@ -45,6 +45,8 @@ func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.Inte
 		machine.Event(action, callbackEvent)
 	}
 
+	machine.BuildAttachment(callbackEvent)
+
 	message := slack.Msg{
 		ReplaceOriginal: true,
 		Attachments:     []slack.Attachment{machine.Attachment()},
