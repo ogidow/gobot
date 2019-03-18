@@ -21,7 +21,7 @@ type Event struct {
 
 func NewState(name string) *State {
 	events := map[string]Event{}
-	return &State{name, &slack.Attachment{Color: "#f9a41b"}, events, false, false}
+	return &State{name, &slack.Attachment{Color: "#f9a41b", CallbackID: name}, events, false, false}
 }
 
 func (d *State) InitialState() {
