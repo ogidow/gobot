@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"bytes"
 	"encoding/json"
-	"os"
 
 	"github.com/nlopes/slack"
 	"github.com/nlopes/slack/slackevents"
@@ -17,9 +16,9 @@ type eventApiHandler struct {
 	bot *Gobot
 }
 
-func NewEventApiHandler(verificationToken string, firstMessage string, bot *Gobot) eventApiHandler {
-	client := slack.New(os.Getenv("SLACK_ACCESS_TOKEN"))
-	return eventApiHandler{client, verificationToken, firstMessage, bot}
+func (g *Gobot) NewEventApiHandler(verificationToken string, firstMessage string, slackAccessToken string) eventApiHandler {
+	client := slack.New(slackAccessToken)
+	return eventApiHandler{client, verificationToken, firstMessage, g}
 }
 
 func (h eventApiHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {

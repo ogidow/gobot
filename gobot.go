@@ -5,27 +5,22 @@ import (
 	"net/http"
 
 	"github.com/nlopes/slack"
-	"github.com/looplab/fsm"
+	"github.com/ogidow/gobot/machine"
 )
 
 type Gobot struct {
-	machines map[string]SlackEventMachine
-	states map[string]SlackEventMachine
-}
-
-type SlackEventMachine interface {
-	GetStateMachine() *fsm.FSM
-	GetNextSlackAttachments() []slack.Attachment
+	machines map[string]machine.Machine
+	states map[string]*machine.Machine
 }
 
 func NewGobot() *Gobot {
-	machines := map[string]SlackEventMachine{}
-	states := map[string]SlackEventMachine{}
+	machines := map[string]machine.Machine{}
+	states := map[string]*machine.Machine{}
 	return &Gobot{machines, states}
 }
 
-func (g *Gobot) AddMachine(name string, machine SlackEventMachine) {
-	g.machines[name] = machine
+func (g *Gobot) AddMachine(machine machine.Machine) {
+	g.machines[machine.Name] = machine
 }
 
 func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.InteractionCallback) {
@@ -34,18 +29,21 @@ func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.Inte
 	machine := g.states[messageTs]
 	if machine == nil {
 		machineName := callbackEvent.Actions[0].SelectedOptions[0].Value
-		machine = g.machines[machineName]
-		g.states[messageTs] = machine
+		tmpMachine := g.machines[machineName]
+		g.states[messageTs] = &tmpMachine
+		machine = &tmpMachine
+	} else {
+		machine.Event(action, callbackEvent)
 	}
 
-	machine.GetStateMachine().Event(action, callbackEvent)
+	machine.BuildAttachment(callbackEvent)
 
 	message := slack.Msg{
 		ReplaceOriginal: true,
-		Attachments:     machine.GetNextSlackAttachments(),
+		Attachments:     []slack.Attachment{machine.Attachment()},
 	}
 
-	if machine.GetStateMachine().Current() == "end" {
+	if machine.Current.End {
 		delete(g.states, messageTs)
 	}
 
