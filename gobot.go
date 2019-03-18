@@ -10,8 +10,8 @@ import (
 )
 
 type Gobot struct {
-	machines map[string]Machine
-	states map[string]Machine
+	machines map[string]machine.Machine
+	states map[string]*machine.Machine
 }
 
 type SlackEventMachine interface {
@@ -20,12 +20,12 @@ type SlackEventMachine interface {
 }
 
 func NewGobot() *Gobot {
-	machines := map[string]*Machine{}
-	states := map[string]*Machine{}
+	machines := map[string]machine.Machine{}
+	states := map[string]*machine.Machine{}
 	return &Gobot{machines, states}
 }
 
-func (g *Gobot) AddMachine(machine *machine) {
+func (g *Gobot) AddMachine(machine machine.Machine) {
 	g.machines[machine.Name] = machine
 }
 
@@ -35,8 +35,8 @@ func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.Inte
 	machine := g.states[messageTs]
 	if machine == nil {
 		machineName := callbackEvent.Actions[0].SelectedOptions[0].Value
-		machine = g.machines[machineName]
-		g.states[messageTs] = machine
+		tmpMachine := g.machines[machineName]
+		g.states[messageTs] = &tmpMachine
 	}
 
 	machine.Event(action, callbackEvent)

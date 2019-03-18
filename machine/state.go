@@ -24,12 +24,12 @@ func NewState() *State {
 	return &State{"", &slack.Attachment{Color: "#f9a41b"}, events, false, false}
 }
 
-func (d *State) Initial() {
+func (d *State) InitialState() {
 	d.initial = true
 }
 
-func (d *State) End() {
-	d.end = true
+func (d *State) EndState() {
+	d.End = true
 }
 
 func (d *State) Color(c string) {
