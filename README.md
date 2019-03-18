@@ -72,4 +72,4 @@ http.ListenAndServe(":" + os.Getenv("PORT"), nil)
 ### Example
 See https://github.com/ogidow/gobot/blob/master/examples
 
-![](/examples/gobot_sample.gif)
+![](/examples/gobot_example.gif)
