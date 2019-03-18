@@ -3,12 +3,10 @@ package gobot
 import (
 	"encoding/json"
 	"net/http"
-	"fmt"
 
 	"github.com/nlopes/slack"
 	"github.com/looplab/fsm"
 	"github.com/ogidow/gobot/machine"
-	"github.com/kr/pretty"
 )
 
 type Gobot struct {
@@ -35,7 +33,6 @@ func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.Inte
 	action := callbackEvent.Actions[0].Name
 	messageTs := callbackEvent.MessageTs
 	machine := g.states[messageTs]
-	fmt.Printf("%# v\n", pretty.Formatter(callbackEvent))
 	if machine == nil {
 		machineName := callbackEvent.Actions[0].SelectedOptions[0].Value
 		tmpMachine := g.machines[machineName]
