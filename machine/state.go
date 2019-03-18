@@ -45,9 +45,9 @@ func (s *State) Text(t string) {
 	s.attachment.Text = t
 }
 
-func (s *State) Button(name string, text string, value string) {
+func (s *State) Button(eventName string, text string, value string) {
 	button := slack.AttachmentAction {
-		Name:  name,
+		Name:  eventName,
       	Text:  text,
       	Type:  "button",
       	Value: value,
@@ -65,14 +65,14 @@ func (s *State) Field(title string, value string) {
 	s.attachment.Fields = append(s.attachment.Fields, field)
 }
 
-func (s *State) SelectBox(name string, options []SelectBoxOption) {
+func (s *State) SelectBox(eventName string, options []SelectBoxOption) {
 	var slackOptions []slack.AttachmentActionOption
 
 	for _, op := range options {
 		slackOptions = append(slackOptions, slack.AttachmentActionOption{Text: op.Text, Value: op.Value})
 	}
 	selectBox := slack.AttachmentAction {
-		Name:    name,
+		Name:    eventName,
 		Type:    "select",
 		Options: slackOptions,
 	}
