@@ -1,6 +1,7 @@
 package main
 
 import (
+	"os"
 	"net/http"
 
 	"github.com/ogidow/gobot"
@@ -15,8 +16,9 @@ func main() {
 	SlackAccessToken := "YOURE_SLACK_ACCESS_TOKEN"
 
 	eventHandler := bot.NewEventApiHandler(slackVerificationToken, "what do you do?", SlackAccessToken)
-	http.Handle("/events", eventHandler)
+	http.Handle("/path/to/your_event_api", eventHandler)
 
 	interactiveHandler := bot.NewInteractiveApiHandler()
-	http.Handle("/interactive_messages", interactiveHandler)
+	http.Handle("/path/to/your_interactive_messages_api", interactiveHandler)
+	http.ListenAndServe(":" + os.Getenv("PORT"), nil)
 }
