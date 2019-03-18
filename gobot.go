@@ -5,18 +5,12 @@ import (
 	"net/http"
 
 	"github.com/nlopes/slack"
-	"github.com/looplab/fsm"
 	"github.com/ogidow/gobot/machine"
 )
 
 type Gobot struct {
 	machines map[string]machine.Machine
 	states map[string]*machine.Machine
-}
-
-type SlackEventMachine interface {
-	GetStateMachine() *fsm.FSM
-	GetNextSlackAttachments() []slack.Attachment
 }
 
 func NewGobot() *Gobot {
