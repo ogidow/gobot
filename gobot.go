@@ -6,11 +6,12 @@ import (
 
 	"github.com/nlopes/slack"
 	"github.com/looplab/fsm"
+	"github.com/ogidow/gobot/machine"
 )
 
 type Gobot struct {
-	machines map[string]SlackEventMachine
-	states map[string]SlackEventMachine
+	machines map[string]Machine
+	states map[string]Machine
 }
 
 type SlackEventMachine interface {
@@ -19,13 +20,13 @@ type SlackEventMachine interface {
 }
 
 func NewGobot() *Gobot {
-	machines := map[string]SlackEventMachine{}
-	states := map[string]SlackEventMachine{}
+	machines := map[string]*Machine{}
+	states := map[string]*Machine{}
 	return &Gobot{machines, states}
 }
 
-func (g *Gobot) AddMachine(name string, machine SlackEventMachine) {
-	g.machines[name] = machine
+func (g *Gobot) AddMachine(machine *machine) {
+	g.machines[machine.Name] = machine
 }
 
 func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.InteractionCallback) {
@@ -38,14 +39,14 @@ func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.Inte
 		g.states[messageTs] = machine
 	}
 
-	machine.GetStateMachine().Event(action, callbackEvent)
+	machine.Event(action, callbackEvent)
 
 	message := slack.Msg{
 		ReplaceOriginal: true,
-		Attachments:     machine.GetNextSlackAttachments(),
+		Attachments:     []slack.Attachment{machine.Attachment()},
 	}
 
-	if machine.GetStateMachine().Current() == "end" {
+	if machine.Current.End {
 		delete(g.states, messageTs)
 	}
 
