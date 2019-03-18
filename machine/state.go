@@ -19,9 +19,9 @@ type Event struct {
 }
 
 
-func NewState() *State {
+func NewState(name string) *State {
 	events := map[string]Event{}
-	return &State{"", &slack.Attachment{Color: "#f9a41b"}, events, false, false}
+	return &State{name, &slack.Attachment{Color: "#f9a41b"}, events, false, false}
 }
 
 func (d *State) InitialState() {

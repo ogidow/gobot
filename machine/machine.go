@@ -17,10 +17,10 @@ func NewMachine(name string) *Machine{
 	return &Machine{Name: name, states: states}
 }
 
-func (m *Machine) AddState(f func(s *State)) {
-	state := NewState()
+func (m *Machine) AddState(stateName string, f func(s *State)) {
+	state := NewState(stateName)
 	f(state)
-	m.states[state.name] = state
+	m.states[stateName] = state
 
 	if state.initial {
 		m.Current = state
@@ -28,7 +28,6 @@ func (m *Machine) AddState(f func(s *State)) {
 }
 
 func(m *Machine) Event(name string, callback slack.InteractionCallback) {
-	fmt.Println(m.Current)
 	ev := m.Current.events[name]
 	ev.Process(callback)
 	m.Current = m.states[ev.To]
