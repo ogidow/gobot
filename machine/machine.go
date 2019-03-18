@@ -22,7 +22,6 @@ func (m *Machine) AddState(stateName string, f func(s *State)) {
 
 	if state.initial {
 		m.Current = state
-		m.states["initial"] = state
 	}
 }
 

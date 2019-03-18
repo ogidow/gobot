@@ -37,9 +37,9 @@ func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.Inte
 		machineName := callbackEvent.Actions[0].SelectedOptions[0].Value
 		tmpMachine := g.machines[machineName]
 		g.states[messageTs] = &tmpMachine
+	} else {
+		machine.Event(action, callbackEvent)
 	}
-
-	machine.Event(action, callbackEvent)
 
 	message := slack.Msg{
 		ReplaceOriginal: true,
