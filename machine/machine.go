@@ -1,6 +1,8 @@
 package machine
 
 import (
+	"fmt"
+
 	"github.com/nlopes/slack"
 )
 
@@ -26,6 +28,7 @@ func (m *Machine) AddState(f func(s *State)) {
 }
 
 func(m *Machine) Event(name string, callback slack.InteractionCallback) {
+	fmt.Println(m.Current)
 	ev := m.Current.events[name]
 	ev.Process(callback)
 	m.Current = m.states[ev.To]
