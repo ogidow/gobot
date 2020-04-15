@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"encoding/json"
 
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 type interactiveApiHandler struct {

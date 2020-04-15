@@ -5,8 +5,8 @@ import (
 	"bytes"
 	"encoding/json"
 
-	"github.com/nlopes/slack"
-	"github.com/nlopes/slack/slackevents"
+	"github.com/slack-go/slack"
+	"github.com/slack-go/slack/slackevents"
 )
 
 type eventApiHandler struct {

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/ogidow/gobot/machine"
-	"github.com/nlopes/slack"
+	"github.com/slack-go/slack"
 )
 
 type Food struct {
