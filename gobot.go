@@ -4,13 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/nlopes/slack"
 	"github.com/ogidow/gobot/machine"
+	"github.com/slack-go/slack"
 )
 
 type Gobot struct {
 	machines map[string]machine.Machine
-	states map[string]*machine.Machine
+	states   map[string]*machine.Machine
 }
 
 func NewGobot() *Gobot {
@@ -23,12 +23,12 @@ func (g *Gobot) AddMachine(machine machine.Machine) {
 	g.machines[machine.Name] = machine
 }
 
-func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.InteractionCallback) {
-	action := callbackEvent.Actions[0].Name
+func (g *Gobot) HandleAndResponse(w http.ResponseWriter, callbackEvent slack.InteractionCallback) {
+	action := callbackEvent.ActionCallback.AttachmentActions[0].Name
 	messageTs := callbackEvent.MessageTs
 	machine := g.states[messageTs]
 	if machine == nil {
-		machineName := callbackEvent.Actions[0].SelectedOptions[0].Value
+		machineName := callbackEvent.ActionCallback.AttachmentActions[0].SelectedOptions[0].Value
 		tmpMachine := g.machines[machineName]
 		g.states[messageTs] = &tmpMachine
 		machine = &tmpMachine
@@ -51,7 +51,7 @@ func (g *Gobot)HandleAndResponse(w http.ResponseWriter, callbackEvent slack.Inte
 	json.NewEncoder(w).Encode(&message)
 }
 
-func (g *Gobot)GetMachines() []slack.AttachmentActionOption {
+func (g *Gobot) GetMachines() []slack.AttachmentActionOption {
 	var machines []slack.AttachmentActionOption
 
 	for name := range g.machines {
