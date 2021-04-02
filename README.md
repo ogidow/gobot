@@ -52,7 +52,7 @@ bot.AddMachine(food.NewMachine())
 ```
 
 ### Handle slack api
-gobot provides a slakc api handler.
+gobot provides a slack api handler.
 gobot uses the event api 'app_mention' to handle mentions.
 
 You can register a handler in the following way to listen to slack api.
